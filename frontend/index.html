@@ -108,7 +108,6 @@
         formLogin.style.display = "none"
         online.id = user.id;
         online.name = user.name;
-        websocket2.onopen = () => websocket2.send(JSON.stringify(online))
      })
 
      $("#formMensagem").submit((e) => {
@@ -144,8 +143,7 @@
         
     })
 
-    websocket2 = new WebSocket("wss://chat-online-xidl.onrender.com:9092")
-    websocket2.onmessage = Message2
+    
      
     </script>
 </body>

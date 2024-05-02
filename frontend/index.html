@@ -81,7 +81,7 @@
         scroll();
     })
 
-     websocket = new WebSocket("wss://chat-online-xidl.onrender.com");
+     websocket = new WebSocket("wss://chat-online-xidl.onrender.com:7680");
      websocket.onmessage = Message;
 
      const colors = ["red", "yellow", "green", "red", "purple", "pink", "gray"]
@@ -108,7 +108,7 @@
         formLogin.style.display = "none"
         online.id = user.id;
         online.name = user.name;
-        //websocket2.send(JSON.stringify(online))
+        websocket2.send(JSON.stringify(online))
      })
 
      $("#formMensagem").submit((e) => {
@@ -144,8 +144,8 @@
         
     })
 
-    //websocket2 = new WebSocket("wss://chat-online-xidl.onrender.com")
-    //websocket2.onmessage = Message2
+    websocket2 = new WebSocket("wss://chat-online-xidl.onrender.com:9092")
+    websocket2.onmessage = Message2
      
     </script>
 </body>

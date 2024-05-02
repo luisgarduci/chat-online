@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
+</head>
+<body id="corpo">
+    <main>
+        <div id="notificacao">
+         <h3 id="title"></h3>
+         <img src="https://img.freepik.com/fotos-premium/ilustracao-de-renderizacao-em-3d-de-bola-verde-de-natal-decoracao-de-natal-design-de-tema_477250-391.jpg" alt="">
+        </div>
+        <form action="" method="post" id="formLogin">
+            <h1>Login</h1>
+            <input type="text" name="" id="user" placeholder="Usuário">
+        </form>
+        <section id="chat">
+            <div id="messages">
+
+            </div>
+            <form action="" method="post" id="formMensagem">
+                <input type="text" name="" id="mensagem" placeholder="Digite uma Mensagem">
+            </form>
+        </section>
+        
+    </main>
+    
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script>
+     let body = document.getElementById("corpo");
+     let websocket;
+     let websocket2;
+     let chat = document.querySelector("#chat");
+     let formLogin = document.querySelector("#formLogin");
+     let messages = document.querySelector("#messages");
+     let notificacao = document.querySelector("#notificacao");
+     let title = document.querySelector("#title");
+     const Message = (({data}) => { 
+       const {userId, userName, userColor, content} = JSON.parse(data);
+        let UserMessage = document.createElement("div");
+        let containerMessage = document.createElement("div");
+        containerMessage.style.width = "100%";
+        containerMessage.style.display = "flex";
+        containerMessage.style.justifyContent = "flex-start";
+        containerMessage.style.alignItems = "flex-start";
+        UserMessage.style.minWidth = "150px";
+        UserMessage.style.maxWidth = "300px";
+        UserMessage.style.display = "flex";
+        UserMessage.style.justifyContent = "flex-start";
+        UserMessage.style.alignItems = "flex-start";
+        UserMessage.style.flexDirection = "column";
+        UserMessage.style.gap = "10px";
+        UserMessage.style.height = "auto";
+        UserMessage.style.backgroundColor = "#151515";
+        UserMessage.style.color = "white";
+        UserMessage.style.marginBottom = "0px";
+        UserMessage.style.padding = "12px";
+        UserMessage.style.borderRadius = "7px";
+        UserMessage.style.marginLeft = "10px";
+        let sender = document.createElement("h3");
+        sender.innerHTML = userName;
+        sender.style.color = userColor;
+        let MessageContent = document.createElement("p");
+        MessageContent.innerHTML = content;
+        MessageContent.style.color = "white";
+        if (userId === user.id) {
+        containerMessage.style.justifyContent = "flex-end";
+        containerMessage.style.alignItems = "flex-end";
+        UserMessage.style.backgroundColor = "white";
+        MessageContent.style.color = "black";
+        UserMessage.style.marginRight = "15px";
+        }
+        
+        UserMessage.appendChild(sender);
+        UserMessage.appendChild(MessageContent);
+        containerMessage.appendChild(UserMessage)
+        messages.appendChild(containerMessage);
+        scroll();
+    })
+
+     websocket = new WebSocket("ws://localhost:7680");
+     websocket.onmessage = Message;
+
+     const colors = ["red", "yellow", "green", "red", "purple", "pink", "gray"]
+
+     const user = {
+        id: "",
+        name: "",
+        color: "",
+     }
+
+     const online = {
+        id: "",
+        name: ""
+     } 
+     
+     $("#formLogin").submit((e) => {
+        e.preventDefault();
+        let randomColor = Math.floor(Math.random() * colors.length);
+        user.id = Date.now();
+        user.name = $("#user").val();
+        user.color = colors[randomColor];
+        console.log(user.color);
+        chat.style.display = "flex";
+        formLogin.style.display = "none"
+        online.id = user.id;
+        online.name = user.name;
+        websocket2.send(JSON.stringify(online))
+     })
+
+     $("#formMensagem").submit((e) => {
+        e.preventDefault()
+        const message = {
+            userId: user.id,
+            userName: user.name,
+            userColor: user.color,
+            content: $("#mensagem").val()
+        }
+
+        websocket.send(JSON.stringify(message));
+        
+     })
+     
+     const scroll = () => {
+        window.scrollTo({
+            top: document.body.scrollHeight,
+            behavior: "smooth"
+        })
+     }
+
+    const Message2 = (({data}) => {
+        const {id, name} = JSON.parse(data)
+        if (id !== user.id) {
+        notificacao.style.top = "0px"
+        notificacao.style.transition = "all 0.5s"
+        title.innerHTML = `${name} está online`;
+        setTimeout(() => {
+        notificacao.style.top = "-100px";
+        }, 3000)
+        }
+        
+    })
+
+    websocket2 = new WebSocket("ws://localhost:9092")
+    websocket2.onmessage = Message2
+     
+    </script>
+</body>
+</html>

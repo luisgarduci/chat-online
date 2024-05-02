@@ -119,7 +119,7 @@
             content: $("#mensagem").val()
         }
 
-        websocket.onopen = () => websocket.send(JSON.stringify(message));
+        websocket.send(JSON.stringify(message));
         
      })
      

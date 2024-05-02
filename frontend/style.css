@@ -7,7 +7,7 @@ body {
     height: 100vh;
     background-image: url("https://th.bing.com/th/id/OIP.Rt0DBiIAnWdSzXMjmxi6vwHaNK?rs=1&pid=ImgDetMain");
     background-size: cover;
-    background-repeat: no-repeat;
+    background-repeat: repeat;
 }
 
 main {

@@ -9,10 +9,6 @@
 </head>
 <body id="corpo">
     <main>
-        <div id="notificacao">
-         <h3 id="title"></h3>
-         <img src="https://img.freepik.com/fotos-premium/ilustracao-de-renderizacao-em-3d-de-bola-verde-de-natal-decoracao-de-natal-design-de-tema_477250-391.jpg" alt="">
-        </div>
         <form action="" method="post" id="formLogin">
             <h1>Login</h1>
             <input type="text" name="" id="user" placeholder="Usuário">
@@ -36,8 +32,8 @@
      let chat = document.querySelector("#chat");
      let formLogin = document.querySelector("#formLogin");
      let messages = document.querySelector("#messages");
-     let notificacao = document.querySelector("#notificacao");
-     let title = document.querySelector("#title");
+     //let notificacao = document.querySelector("#notificacao");
+     //let title = document.querySelector("#title");
      const Message = (({data}) => { 
        const {userId, userName, userColor, content} = JSON.parse(data);
         let UserMessage = document.createElement("div");
@@ -92,10 +88,6 @@
         color: "",
      }
 
-     const online = {
-        id: "",
-        name: ""
-     } 
      
      $("#formLogin").submit((e) => {
         e.preventDefault();
@@ -129,21 +121,6 @@
             behavior: "smooth"
         })
      }
-
-    const Message2 = (({data}) => {
-        const {id, name} = JSON.parse(data)
-        if (id !== user.id) {
-        notificacao.style.top = "0px"
-        notificacao.style.transition = "all 0.5s"
-        title.innerHTML = `${name} está online`;
-        setTimeout(() => {
-        notificacao.style.top = "-100px";
-        }, 3000)
-        }
-        
-    })
-
-    
      
     </script>
 </body>

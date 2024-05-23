@@ -28,12 +28,9 @@
     <script>
      let body = document.getElementById("corpo");
      let websocket;
-     let websocket2;
      let chat = document.querySelector("#chat");
      let formLogin = document.querySelector("#formLogin");
      let messages = document.querySelector("#messages");
-     //let notificacao = document.querySelector("#notificacao");
-     //let title = document.querySelector("#title");
      const Message = (({data}) => { 
        const {userId, userName, userColor, content} = JSON.parse(data);
         let UserMessage = document.createElement("div");
@@ -98,8 +95,6 @@
         console.log(user.color);
         chat.style.display = "flex";
         formLogin.style.display = "none"
-        online.id = user.id;
-        online.name = user.name;
      })
 
      $("#formMensagem").submit((e) => {

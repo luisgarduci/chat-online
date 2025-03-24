@@ -1,6 +1,11 @@
 const {WebSocketServer} = require('ws')
-const port = 7680
-const server = new WebSocketServer({port: port})
+
+onst port = process.env.PORT || 7680;
+
+const server = new WebSocketServer({
+  port: port,
+  host: '0.0.0.0', // Garante que o servidor aceita conexões externas
+});
 
 //servidor para mandar e receber mensagens
 server.on("connection", (ws) => {

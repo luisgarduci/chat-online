@@ -1,10 +1,10 @@
 const {WebSocketServer} = require('ws')
 
-onst port = process.env.PORT || 7680;
+onst port = process.env.PORT || 10000;
 
 const server = new WebSocketServer({
   port: port,
-  host: '0.0.0.0', // Garante que o servidor aceita conexões externas
+  host: 'https://chat-online-2s9e.onrender.com', // Garante que o servidor aceita conexões externas
 });
 
 //servidor para mandar e receber mensagens

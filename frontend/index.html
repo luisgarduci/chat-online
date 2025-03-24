@@ -112,6 +112,8 @@
             content: $("#mensagem").val()
         }
 
+         console.log(message)
+
        websocket.onopen = () => websocket.send(JSON.stringify(message));
         
      })

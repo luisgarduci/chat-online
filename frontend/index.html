@@ -76,6 +76,11 @@
     })
 
      websocket = new WebSocket("wss://chat-online-2s9e.onrender.com");
+
+       websocket.onerror = (error) => {
+        console.log(error)
+     }
+        
      websocket.onmessage = Message;
 
      const colors = ["red", "yellow", "green", "red", "purple", "pink", "gray"]

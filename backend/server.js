@@ -13,6 +13,7 @@ ws.on("error", console.error)
 console.log("Client Connected")
 ws.on("message", (data) => {
 console.log(data.toString())
+console.log("TESTE");
 server.clients.forEach((client) => client.send(data.toString()))
 })
 })

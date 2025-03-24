@@ -10,7 +10,7 @@ const server = new WebSocketServer({
 //servidor para mandar e receber mensagens
 server.on("connection", (ws) => {
 ws.on("error", console.error)
-//console.log("Client Connected")
+console.log("Client Connected")
 ws.on("message", (data) => {
 console.log(data.toString())
 server.clients.forEach((client) => client.send(data.toString()))
